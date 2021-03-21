@@ -2,6 +2,42 @@ package gna;
 
 // Do not remove the "implements libpract.SortingAlgorithm".
 public abstract class SortingAlgorithm implements libpract.SortingAlgorithm{
+	
+	protected long comparisons;
+	protected long swaps;
+	
+	protected boolean less(Comparable comparable, Comparable other) {
+		return compare(comparable, other) < 0;
+	}
+	
+	protected boolean greater(Comparable comparable, Comparable other) {
+		return compare(comparable, other) > 0;
+	}
+	
+	protected boolean equal(Comparable comparable, Comparable other) {
+		return comparable.compareTo(other) == 0;
+	}
+	
+	protected int compare(Comparable comparable, Comparable other) {
+		comparisons++;
+		return comparable.compareTo(other);
+	}
+	
+	public long getComparisons() {
+		return comparisons;
+	}
+	
+	public long getSwaps() {
+		return swaps;
+	}
+	
+	protected void swap(Comparable[] array, int i, int j) {
+		swaps++;
+		Comparable temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	
 	/**
 	 * Sorts the given array.
 	 * 

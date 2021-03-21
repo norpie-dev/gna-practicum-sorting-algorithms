@@ -9,10 +9,6 @@ import libpract.SortingAlgorithm;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import gna.algorithms.InsertionSort;
-import gna.algorithms.QuickSort;
-import gna.algorithms.SelectionSort;
-
 /**
  * Tests provided to the students to prevent technical errors that make grading hard.
  * 

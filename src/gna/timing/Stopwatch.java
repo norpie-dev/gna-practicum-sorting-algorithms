@@ -1,4 +1,4 @@
-package gna.utils;
+package gna.timing;
 
 public class Stopwatch {
 	
@@ -22,12 +22,12 @@ public class Stopwatch {
 		}
 	}
 	
-	public double getMilliseconds() {
+	public long getMilliseconds() {
 		verify();
 		return stopTime - startTime;
 	}
 
-	public double getSeconds() {
+	public long getSeconds() {
 		verify();
 		return getMilliseconds() / 1000;
 	}

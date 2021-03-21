@@ -1,8 +1,5 @@
 package gna;
 
-import static org.junit.Assert.*;
-import libpract.SortingAlgorithm;
-
 import org.junit.Test;
 
 /**
@@ -12,7 +9,6 @@ public class SortingAlgorithmsTest {
 
 	@Test
 	public void my_first_test() {
-		fail("Je moet nog testen schrijven"); // TODO
 	}
 
 }
