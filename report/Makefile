@@ -1,11 +1,10 @@
 all: compile clean
 
-open: compile
+open: compile clean
 	zathura report.pdf
 
 compile:
-	pdflatex report.tex
-	pdflatex report.tex
+	latexmk -pdf
 
 clean:
-	rm -f report.toc report.log report.aux report.bbl report.blg
+	rm -f report.aux report.dvi report.fls  report.log report.bbl report.blg report.out report.toc report.fdb_latexmk

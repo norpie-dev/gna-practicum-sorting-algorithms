@@ -1,0 +1,25 @@
+\section{QuickSort}
+
+\subsection{Algemeen}
+
+\includegraphics[scale=0.3]{sections/media/QS_C_BC}
+\includegraphics[scale=0.3]{sections/media/QS_C_WC}
+\includegraphics[scale=0.6]{sections/media/QS_C_NC}
+
+QuickSort is een divide-and-conquer algoritme. Het werkt door een \textit{pivot} te kiezen uit de array en het array daar te partitioneren in twee sub-arrays gebaseerd op of dat het element groter of kleiner is als de \textit{pivot}, de twee sub-arrays worden dan recursief gesorteerd door hetzelfde algoritme.
+
+Theoretisch gezien is QuickSort een \(\sim 1,39nlog(n)\) algoritme.
+
+We kunnen zien aan de grafiek dat in de normale gevallen, net zoals InsertionSort, dat er een grote verspreiding is in de vergelijkingen van het algoritme. Omdat het best-case scenario voor QuickSort niet de echt best-case scenario is, krijgen we niet de theoretisch berekende \(nlog(n)\) vergelijkingen. Hetzelfe voor het worst-case scenario, we krijgen niet de theoretisch berekende \(n^2\).
+
+\newpage
+
+\subsection{Doubling Ratio}
+
+\input{sections/tables/quicksort_doubling_ratio_metingen.tex}
+
+Het doubling ratio experiment levert de bovenstaande tabel op. We verwachten dat het doubling ratio 2 nadert want, \(T(2)=2\log_2(2)=2\) en als N 2 keer zo groot was zou \(T(N)\) ook ongeveer 2 moeten zijn. We zien dan ook dat het doubling ratio snel deze theoretische limiet nadert.
+
+\input{sections/tables/quicksort_doubling_ratio_voorspelling.tex}
+
+Voor de voorspelling is als doubling ratio 2 genomen zoals hierboven besproken. We zien uit de tabbel dat de voorspelling zich ongeveer richten met de metingen. Als we nu een voorspelling maken voor een problem size N die 8 keer groter is aals onze grootste meeting, dan bekomen we: \(1325,20*2^8=338995,2\) of \(\sim 338\) seconden. Dit is trouwens veel sneller dan bijde InsertionSort en SelectionSort.

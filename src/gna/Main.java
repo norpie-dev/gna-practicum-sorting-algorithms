@@ -1,54 +1,122 @@
 package gna;
 
-import java.util.HashMap;
-
-import gna.algorithms.Sorter;
 import gna.datalogging.DataLogger;
 import gna.datalogging.DataPoint;
 import gna.utils.ComparableFactory;
+import gna.utils.Sorter;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Comparable[] comparables = ComparableFactory.getRandomInts(32764, 0, Integer.MAX_VALUE);
-		Sorter sorter = new Sorter(QuickSort.class);
-		HashMap<String, Object> data = sorter.sort(comparables);
-		System.out.println(data.get("milliseconds"));
-//		doublingExperiment();
+		new Main();
 	}
 
-	// Experiments
-	protected static void doublingExperiment() {
-		System.out.println("Doubling experiment - Started");
-		long prev = 1;
-		HashMap<String, Object> example = new HashMap<String, Object>();
-		example.put("milliseconds", null);
-		example.put("comparables", null);
-		example.put("comparisons", null);
-		example.put("swaps", null);
-		example.put("ratio", null);
-		DataLogger datalogger = new DataLogger(new DataPoint(example));
-		for (int i = 11; i < 26; i++) {
-			System.out.println(i);
-			int n = (int) Math.pow(2, i);
-			Comparable[] comparables = ComparableFactory.getRandomInts(n, 0, Integer.MAX_VALUE);
-			// Get algo and timer
-			Sorter sorter = new Sorter(InsertionSort.class);
-			HashMap<String, Object> data = sorter.sort(comparables);
-			long time = (long) data.get("milliseconds");
-			data.put("ratio", time/prev);
-			prev = time;
-			datalogger.add(new DataPoint(data));
-		}
-		datalogger.write();
-		System.out.println("Doubling experiment - Stopped");
-	}
-
-	// Data gathering
+	// Instanciation
 	private static Main instance;
+
+	private static final Class<? extends SortingAlgorithm>[] ALL_ALGORITHMS = new Class[] { QuickSort.class,
+			InsertionSort.class, SelectionSort.class };
 
 	public static Main getInstance() {
 		return instance;
 	}
 
+	public Main() {
+		oneToOneHundred();
+		doublingRatioExperiment(QuickSort.class, 320, 10);
+		worstCase();
+		bestCase();
+	}
+
+	// Experiments
+
+	/*
+	 * Doubling ratio experiment
+	 */
+	public void doublingRatioExperiment(Class<? extends SortingAlgorithm> algorithm, int start, int iterations) {
+		System.out.println("Doing: " + algorithm.getSimpleName());
+		DataLogger datalogger = new DataLogger(algorithm.getSimpleName());
+		Sorter sorter = new Sorter(algorithm);
+		int n = start;
+		for (int i = 0; i < iterations; i++) {
+			n = dual(n);
+			for (int j = 0; j < 20; j++) {
+				Comparable[] comparables = ComparableFactory.getN(n);
+				DataPoint datapoint = sorter.sort(comparables);
+				datalogger.add(datapoint);
+				System.out.println("Datapoint " + j + " acquired");
+			}
+			System.out.println("Iteration done: " + i);
+		}
+		datalogger.write();
+		System.out.println("Done: " + algorithm.getSimpleName());
+	}
+
+	private int dual(int i) {
+		return i * 2;
+	}
+
+	/*
+	 * Run all 3 algorithms 50 times for every array of size n, where n is a number
+	 * from 1 to 100.
+	 */
+	public void oneToOneHundred() {
+		for (Class<? extends SortingAlgorithm> algorithm : ALL_ALGORITHMS) {
+			DataLogger datalogger = new DataLogger(algorithm.getSimpleName());
+			System.out.println("Starting with algorithm: " + algorithm.getSimpleName());
+			Sorter sorter = new Sorter(algorithm);
+			for (int i = 0; i < 50; i++) {
+				for (int n = 1; n < 101; n++) {
+					Comparable[] comparables = ComparableFactory.getN(n);
+					DataPoint datapoint = sorter.sort(comparables);
+					datalogger.add(datapoint);
+				}
+				System.out.println("Done " + i + "/" + 50 + " for " + algorithm.getSimpleName());
+			}
+			datalogger.write();
+			System.out.println("Done with algorithm: " + algorithm.getSimpleName());
+		}
+	}
+
+	/*
+	 * Simulates the worst case scenario of the algorithm
+	 */
+	public void worstCase() {
+		for (Class<? extends SortingAlgorithm> algorithm : ALL_ALGORITHMS) {
+			DataLogger datalogger = new DataLogger(algorithm.getSimpleName());
+			System.out.println("Starting with algorithm: " + algorithm.getSimpleName());
+			Sorter sorter = new Sorter(algorithm);
+			for (int i = 0; i < 50; i++) {
+				for (int n = 1; n < 101; n++) {
+					Comparable[] comparables = ComparableFactory.getNReversed(n);
+					DataPoint datapoint = sorter.sort(comparables);
+					datalogger.add(datapoint);
+				}
+				System.out.println("Done " + i + "/" + 50 + " for " + algorithm.getSimpleName());
+			}
+			datalogger.write();
+			System.out.println("Done with algorithm: " + algorithm.getSimpleName());
+		}
+	}
+
+	/*
+	 * Simulates the best case scenario of the algorithm
+	 */
+	public void bestCase() {
+		for (Class<? extends SortingAlgorithm> algorithm : ALL_ALGORITHMS) {
+			DataLogger datalogger = new DataLogger(algorithm.getSimpleName());
+			System.out.println("Starting with algorithm: " + algorithm.getSimpleName());
+			Sorter sorter = new Sorter(algorithm);
+			for (int i = 0; i < 50; i++) {
+				for (int n = 1; n < 101; n++) {
+					Comparable[] comparables = ComparableFactory.getNSorted(n);
+					DataPoint datapoint = sorter.sort(comparables);
+					datalogger.add(datapoint);
+				}
+				System.out.println("Done " + i + "/" + 50 + " for " + algorithm.getSimpleName());
+			}
+			datalogger.write();
+			System.out.println("Done with algorithm: " + algorithm.getSimpleName());
+		}
+	}
 }

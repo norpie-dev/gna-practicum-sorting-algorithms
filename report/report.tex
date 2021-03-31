@@ -6,6 +6,7 @@
 \usepackage[dutch]{babel} % Language
 \usepackage{amsmath} % Math
 \usepackage{amssymb} % More Math
+\usepackage{hyperref}
 \usepackage{graphicx} % Images
 
 \title{Efficiëntie van sorteeralgoritmen op willekeurige inputrijen}
@@ -23,14 +24,18 @@
 
 \pagebreak
 
+% intro
 \input{sections/inleiding.tex}
 
-\input{sections/probleemstelling.tex}
-
+% body actual contents
+\input{sections/definities.tex}
 \input{sections/onderzoeksmethode.tex}
 
-\input{sections/resultaten.tex}
+\input{sections/insertionsort.tex}
+\input{sections/quicksort.tex}
+\input{sections/selectionsort.tex}
 
+% conclusion
 \input{sections/conclusie.tex}
 
 \end{document}

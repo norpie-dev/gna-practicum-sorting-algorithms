@@ -18,6 +18,7 @@ public class QuickSort extends SortingAlgorithm {
 		}
 		// Pre-requisite variables
 		comparisons = 0;
+		swaps = 0;
 		// Algorithm
 		sort(array, 0, array.length - 1);
 		return comparisons;

@@ -16,6 +16,7 @@ public class SelectionSort extends SortingAlgorithm {
 		}
 		// Pre-requisite variables
 		comparisons = 0;
+		swaps = 0;
 		// Actual algorithm
 		for (int i = 0; i < array.length - 1; i++) {
 			int minimum = i;

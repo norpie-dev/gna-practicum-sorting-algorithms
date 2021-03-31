@@ -1,0 +1,22 @@
+\section{InsertionSort}
+
+\subsection{Algemeen}
+
+\includegraphics[scale=0.3]{sections/media/IS_C_BC}
+\includegraphics[scale=0.3]{sections/media/IS_C_WC}
+\includegraphics[scale=0.6]{sections/media/IS_C_NC}
+
+InsertionSort is een sorteeralgoritme dat het definitief gesorteerde array een item tegelijk opbouwd. Theoretisch is InsertionSort een \(\sim n^{2}/4\) algoritme.
+
+We kunnen zien dat in normale gevallen het algoritme afhanklijk is van de data in de array, en dat het sterk op een kwadratische functie lijkt.
+
+Herkenbaar is ook dat het algoritme in het beste geval \(n\) vergelijkingen gaat maken, en dat in het slechste geval \((n^2 - n)/2\) vergelijkingen gaat maken.
+
+\subsection{Doubling Ratio}
+\input{sections/tables/insertionsort_doubling_ratio_metingen.tex}
+
+Het doubling ratio experiment voor InsertionSort levert de bovenstaande tabel op. We verwachten dat het doubling ratio 4 nadert, want \(T(2)=2^2=4\). We zien ook dat de gemeten doubling ratio 4 nadert.
+
+\input{sections/tables/insertionsort_doubling_ratio_voorspelling.tex}
+
+Voor de voorspelling is het doubling ratio 4 gebruikt zoals hierboven uitgelegt.We zien uit de tabel dat de voorspelling ongeveer correct is. Als we nu een voorspelling maken voor een problem size N die 8 keer groter is dan onze grootste meting, volgt dat: \(40994.95*4^8=2686645043.2\) of 1 maand 16 uur 12 minuten en 37 seconden.

@@ -1,10 +1,10 @@
-package gna.algorithms;
+package gna.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 import gna.SortingAlgorithm;
-import gna.timing.Stopwatch;
+import gna.datalogging.DataPoint;
 
 public class Sorter {
 
@@ -21,7 +21,7 @@ public class Sorter {
 		}
 	}
 
-	public HashMap<String, Object> sort(Comparable[] array) throws IllegalArgumentException {
+	public DataPoint sort(Comparable[] array) throws IllegalArgumentException {
 		Stopwatch stopwatch = new Stopwatch();
 		// Timing
 		stopwatch.start();
@@ -29,11 +29,12 @@ public class Sorter {
 		stopwatch.stop();
 		// Get data
 		HashMap<String, Object> data = new HashMap<>();
+		data.put("nanoseconds", stopwatch.getNanoSeconds());
 		data.put("milliseconds", stopwatch.getMilliseconds());
 		data.put("comparables", array.length);
 		data.put("comparisons", sorter.getComparisons());
 		data.put("swaps", sorter.getSwaps());
-		return data;
+		return new DataPoint(data);
 	}
 	
 	public Class<? extends SortingAlgorithm> getAlgorithm() {

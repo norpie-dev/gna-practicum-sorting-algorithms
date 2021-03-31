@@ -8,16 +8,18 @@ import java.util.HashSet;
 public class DataLogger {
 
 	private HashSet<DataPoint> datapoints;
+	private boolean labled;
 	private FileWriter fileWriter;
 
-	public DataLogger(DataPoint example) {
-		this("data", example);
+	public DataLogger() {
+		this("data");
 	}
 
-	public DataLogger(String filename, DataPoint example) {
+	public DataLogger(String filename) {
 		datapoints = new HashSet<>();
 		File file = generateFile(filename);
-		fileWriter = prepareFile(file, example);
+		fileWriter = prepareFile(file);
+		labled = false;
 	}
 
 	private File generateFile(String filename) {
@@ -29,15 +31,9 @@ public class DataLogger {
 		return file;
 	}
 
-	private FileWriter prepareFile(File file, DataPoint example) {
+	private FileWriter prepareFile(File file) {
 		try {
 			fileWriter = new FileWriter(file, true);
-			String line = "";
-			for (String key : example.getData().keySet()) {
-				line = line + key + "\t";
-			}
-			line = line + System.lineSeparator();
-			fileWriter.append(line);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -45,6 +41,19 @@ public class DataLogger {
 	}
 
 	public void add(DataPoint datapoint) {
+		if (labled == false) {
+			try {
+				String line = "";
+				for (String key : datapoint.getData().keySet()) {
+					line = line + key + "\t";
+				}
+				line = line + System.lineSeparator();
+				fileWriter.append(line);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			labled = true;
+		}
 		datapoints.add(datapoint);
 	}
 

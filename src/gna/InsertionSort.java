@@ -18,6 +18,7 @@ public class InsertionSort extends SortingAlgorithm {
 		}
 		// Pre-requisite variables
 		comparisons = 0;
+		swaps = 0;
 		// Algorithm
 		for (int i = 0; i < array.length; i++) {
 			for (int j = i; j > 0 && greater(array[j - 1], array[j]); j--) {
